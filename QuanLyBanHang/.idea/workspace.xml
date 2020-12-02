@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0876dedf-faca-4c0c-81b7-d7387bd324ec" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings">
+    <execution />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP" />
+  <component name="ProjectId" id="1keCNeVHOA5MxhvANSB6QEABTV9" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0876dedf-faca-4c0c-81b7-d7387bd324ec" name="Default Changelist" comment="" />
+      <created>1606051632812</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1606051632812</updated>
+      <workItem from="1606051634225" duration="9477000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="402" y="0" key="#PHP" timestamp="1606054638815">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="402" y="0" key="#PHP/0.0.1366.738@0.0.1366.738" timestamp="1606054638815" />
+    <state width="1323" height="255" key="GridCell.Tab.0.bottom" timestamp="1606194563034">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="255" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606194563034" />
+    <state width="1323" height="255" key="GridCell.Tab.0.center" timestamp="1606194563033">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="255" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606194563033" />
+    <state width="1323" height="255" key="GridCell.Tab.0.left" timestamp="1606194563029">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="255" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606194563029" />
+    <state width="1323" height="255" key="GridCell.Tab.0.right" timestamp="1606194563033">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state width="1323" height="255" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606194563033" />
+    <state x="517" y="288" key="NewPhpFileDialog" timestamp="1606063863926">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="517" y="288" key="NewPhpFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1606063863926" />
+  </component>
+</project>

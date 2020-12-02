@@ -1,0 +1,16 @@
+body {
+    background: url(../Image/economy-bg2.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center center;
+}
+
+.icon-color-login {
+    color: grey;
+}
+
+.icon-align {
+    margin-left: 5px;
+    margin-right: 3px;
+}
