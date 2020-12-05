@@ -117,13 +117,13 @@
                                                 $query->execute();
                                                 $result = $query;
                                                 foreach ($result as $item) {
-                                                    echo '<td>' .$item['MSHH']. '</td>';
+                                                    echo '<tr><td>' .$item['MSHH']. '</td>';
                                                     echo '<td>' .$item['TenHH']. '</td>';
                                                     echo '<td>' .$item['Gia']. '</td>';
                                                     echo '<td>' .$item['SoLuongHang']. '</td>';
                                                     echo '<td>' .$item['MaNhom']. '</td>';
                                                     echo '<td> <img src = "' .$item['Hinh']. '"></td>';
-                                                    echo '<td>' .$item['MoTaHH']. '</td>';
+                                                    echo '<td>' .$item['MoTaHH']. '</td></tr>';
                                                 }
                                             }catch(PDOException $e){
                                                 die($e->getMessage());

@@ -20,11 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c5d4ba03-3180-4180-8613-705a7c8dabba" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/CSS/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/CSS/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JS/scripts.js" beforeDir="false" afterPath="$PROJECT_DIR$/JS/scripts.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PHP/login-process.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/login-process.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PHP/product.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PHP/sell.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/sell.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PHP/staff.php" beforeDir="false" afterPath="$PROJECT_DIR$/PHP/staff.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1606919228456</updated>
       <workItem from="1606919231489" duration="1031000" />
-      <workItem from="1607086035779" duration="14221000" />
+      <workItem from="1607086035779" duration="29762000" />
     </task>
     <servers />
   </component>
@@ -74,5 +74,11 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="339" y="165" key="run.anything.popup" timestamp="1607162192869">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="339" y="165" key="run.anything.popup/0.0.1366.738@0.0.1366.738" timestamp="1607162192869" />
   </component>
 </project>

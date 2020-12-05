@@ -18,7 +18,12 @@
         if($result->rowCount()>0){
             session_start();
             $_SESSION["logined"] = "OK";
+            foreach ($result as $item){
+                $_SESSION["MSNV"] = $item['MSNV'];
+            }
+
             header('location: order.php');
+
         }
         else{
             header('location: login.php');

@@ -20,6 +20,40 @@
             header('location: login.php');
         }
         else {
+            $donhang = "";
+            $i = 0;
+            if(isset($_REQUEST['search-input'])) {
+                $id = $_REQUEST['search-input'];
+                try {
+                    $i++;
+                    $connect = new PDO('mysql:host = ' . $hostname . '; dbname = ' . $database, $username, $password);
+                    $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    $sql = "SELECT * FROM quanlibanhang.hanghoa Where MSHH = '$id'";
+                    $query = $connect->prepare($sql);
+                    $query->execute();
+                    $result = $query;
+                    foreach($result as $item) {
+                        if($item['SoLuongHang'] ==  0){
+                            echo"Looix";
+                            return;
+                        }
+                        $donhang =  '<td>' . $i . '</td>
+                                    <td>' . $item['MSHH'] . '</td>
+                                    <td>' . $item['TenHH'] . '</td>
+                                    <td> <img src = "' . $item['Hinh'] . '"></td>
+                                    <td> <input type="number" id="quantity" name="quantity" min="1" max="100"></td>
+                                    <td>' . $item['Gia'] . '</td><td><span id="thanhtien"></span></td>
+                                    <td><button id="Del">Bỏ</button></td>';
+                        ?>
+                            <script>
+                                localStorage.setItem('DonGia', <?php echo $item['Gia'] ?>);
+                            </script>
+                        <?php
+                    }
+                } catch (PDOException $e) {
+                    die($e->getMessage());
+                }
+            }
     ?>
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-blue">
@@ -63,7 +97,7 @@
                                         $query->execute();
                                         $result = $query;
                                         foreach ($result as $item) {
-                                            echo '<option> ' .$item['MSHH'];
+                                            echo '<option value = "'.$item['MSHH'].'"> ' .$item['MSHH'];
                                             echo "-".$item['TenHH']. '</td> </option>';
                                         }
                                     }catch(PDOException $e){
@@ -72,48 +106,35 @@
                                     ?>
                                 </select>
                             </datalist>
+                            <input id = "submit-accept-search" type="submit" name="submit-accept-search" value="Xác Nhận">
                         </form>
 
                         <div class="card card-new mb-4">
                             <div class="table-responsive">
-                                <table class="table table-bordered2 table-new" width="100%" cellspacing="0">
+                                <table id="SanPham" class="table table-bordered2 table-new" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>STT</th>
                                             <th>Mã hàng</th>
                                             <th>Tên sản phẩm</th>
+                                            <th>Hình Ảnh</th>
                                             <th>Số lượng</th>
                                             <th>Giá bán</th>
                                             <th>Thành tiền</th>
-                                            <th></th>
+                                            <th>Loại Bỏ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                     <?php
-                                    try{
-                                        $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
-                                        $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                        $sql = "SELECT * FROM quanlibanhang.hanghoa";
-                                        $query = $connect->prepare($sql);
-                                        $query->execute();
-                                        $result = $query;
-                                        foreach ($result as $item) {
-                                            echo '<td>' .$item['MSHH']. '</td>';
-                                            echo '<td>' .$item['TenHH']. '</td>';
-                                            echo '<td>' .$item['Gia']. '</td>';
-                                            echo '<td>' .$item['SoLuongHang']. '</td>';
-                                            echo '<td>' .$item['MaNhom']. '</td>';
-                                            echo '<td> <img src = "' .$item['Hinh']. '"></td>';
-                                            echo '<td>' .$item['MoTaHH']. '</td>';
-                                        }
-                                    }catch(PDOException $e){
-                                        die($e->getMessage());
-                                    }
+                                        echo $donhang;
                                     ?>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
+                        <button id = "add-product">
+                            Thêm Vào Hóa Đơn
+                        </button>
                         <div class="alert alert-success"> 
                             Gõ mã hoặc tên sản phẩm vào hộp tìm kiếm để thêm hàng vào đơn hàng
                         </div>
@@ -126,17 +147,36 @@
                         <tr>
                             <td>Khách hàng</td>
                             <td>
-                                <input type="text" placeholder="Tìm khách hàng"/>
+                                <input type="text" placeholder="NHập Tên Khách Hàng"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>SDT Khách Hàng:</td>
+                            <td>
+                                <input type="number" placeholder="NHập SDT Khách Hàng"/>
                             </td>
                         </tr>
                         <tr>
                             <td>NV bán hàng</td>
                             <td>
-                                <select>
-                                    <option>Đoàn Phi Long</option>
-                                    <option>Đỗ Tuấn Kiệt</option>
-                                    <option>Vũ Minh Châu</option>
-                                </select>
+                                <span>
+                                    <?php
+                                        $MaNV = $_SESSION['MSNV'];
+                                        try{
+                                            $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                                            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                            $sql = "SELECT HoTenNV FROM quanlibanhang.nhanvien WHERE MSNV = '$MaNV'";
+                                            $query = $connect->prepare($sql);
+                                            $query->execute();
+                                            $result = $query;
+                                            foreach ($result as $item) {
+                                                echo $item['HoTenNV'];
+                                            }
+                                        }catch(PDOException $e){
+                                            die($e->getMessage());
+                                        }
+                                    ?>
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -154,27 +194,6 @@
                     </div>
 
                     <table>
-                        <?php
-                        try{
-                            $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
-                            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                            $sql = "SELECT * FROM quanlibanhang.hanghoa";
-                            $query = $connect->prepare($sql);
-                            $query->execute();
-                            $result = $query;
-                            foreach ($result as $item) {
-                                echo '<td>' .$item['MSHH']. '</td>';
-                                echo '<td>' .$item['TenHH']. '</td>';
-                                echo '<td>' .$item['Gia']. '</td>';
-                                echo '<td>' .$item['SoLuongHang']. '</td>';
-                                echo '<td>' .$item['MaNhom']. '</td>';
-                                echo '<td> <img src = "' .$item['Hinh']. '"></td>';
-                                echo '<td>' .$item['MoTaHH']. '</td>';
-                            }
-                        }catch(PDOException $e){
-                            die($e->getMessage());
-                        }
-                        ?>
                         <tr>
                             <td> Hình thức </td>
                             <td>
@@ -183,51 +202,11 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                Số Lượng:
-                            </td>
-                            <td>
-                                    <input type="number" id="quantity" name="quantity" min="1" max="100">
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Đơn Giá:
-                            </td>
-                            <td>
-                                <span></span>
-                            </td>
-                        </tr>
-                        <tr>
                             <td> Thành Tiền </td>
                             <td>
-                                <span> 3.000.000 </span>
+                                <span id="tongtienthanhtoan">  </span>
                             </td>
                         </tr>
-                        <tr>
-                            <td> Giảm giá </td>
-                            <td>
-                                <input type="text" readonly/>
-                            </td>
-                        </tr>   
-                        <tr>
-                            <td> Tổng cộng </td>
-                            <td>
-                                <span> 3.000.000 </span>
-                            </td>
-                        </tr>  
-                        <tr>
-                            <td> Khách đưa </td>
-                            <td>
-                                <input type="text" readonly/>
-                            </td>
-                        </tr>  
-                        <tr>
-                            <td> Còn nợ </td>
-                            <td>
-                                <span> 0 </span>
-                            </td>
-                        </tr>  
                     </table>
                     <div>
                         <button type="button" class="btn btn-primary mt-2 safe-btn">
