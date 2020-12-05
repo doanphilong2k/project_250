@@ -14,6 +14,7 @@
     </head>
     <body class="sb-nav-fixed">
     <?php
+        include_once ("config.php");
         session_start();
         if(!isset($_SESSION['logined']) || $_SESSION['logined'] == "" || $_SESSION['logined'] == null )
         {
@@ -107,24 +108,27 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>001</td>
-                                                <td>Áo phông</td>
-                                                <td>180.000</td>
-                                                <td>30</td>
-                                                <td>02</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
-                                            <tr>
-                                                <td>002</td>
-                                                <td>Áo hoodie</td>
-                                                <td>300.000</td>
-                                                <td>35</td>
-                                                <td>05</td>
-                                                <td></td>
-                                                <td></td>
-                                            </tr>
+                                        <?php
+                                            try{
+                                                $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                                                $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                $sql = "SELECT * FROM quanlibanhang.hanghoa";
+                                                $query = $connect->prepare($sql);
+                                                $query->execute();
+                                                $result = $query;
+                                                foreach ($result as $item) {
+                                                    echo '<td>' .$item['MSHH']. '</td>';
+                                                    echo '<td>' .$item['TenHH']. '</td>';
+                                                    echo '<td>' .$item['Gia']. '</td>';
+                                                    echo '<td>' .$item['SoLuongHang']. '</td>';
+                                                    echo '<td>' .$item['MaNhom']. '</td>';
+                                                    echo '<td> <img src = "' .$item['Hinh']. '"></td>';
+                                                    echo '<td>' .$item['MoTaHH']. '</td>';
+                                                }
+                                            }catch(PDOException $e){
+                                                die($e->getMessage());
+                                            }
+                                        ?>
                                         </tbody>
                                     </table>
                                 </div>

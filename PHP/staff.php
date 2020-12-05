@@ -138,22 +138,6 @@
                                         }     
                                         ?>
                                         </tbody>
-                                        <!-- <tbody>
-                                            <tr>
-                                                <td>001</td>
-                                                <td>Hồ Ngọc Hùng</td>
-                                                <td>Nhân viên</td>
-                                                <td>Hà Nội</td>
-                                                <td>0359559225</td>
-                                            </tr>
-                                            <tr>
-                                                <td>002</td>
-                                                <td>Hoàng Việt Anh</td>
-                                                <td>Nhân viên</td>
-                                                <td>Hà Nội</td>
-                                                <td>0359559225</td>
-                                            </tr>
-                                        </tbody> -->
                                     </table>
                                 </div>
                             </div>

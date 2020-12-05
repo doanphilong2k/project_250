@@ -11,9 +11,9 @@
         <link rel="stylesheet" type="text/css" href="../CSS/main.css" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
-    </head>
     <body class="sb-nav-fixed">
     <?php
+        include_once("config.php");
         session_start();
         if(!isset($_SESSION['logined']) || $_SESSION['logined'] == "" || $_SESSION['logined'] == null )
         {
@@ -50,118 +50,67 @@
             <div id="layoutSell_content">
                 <main>
                     <div class="container-fluid">
-                        <input type="text" class="breadcrumb-input mb-4 mt-4" placeholder="Nhập mã sản phẩm hoặc tên sản phẩm"/>
+                        <form name="form-search" method="post" action="#">
+                            <input class="breadcrumb-input mb-4 mt-4" type="text" name = "search-input" id="search-input" list="ide" />
+                            <datalist id="ide">
+                                <select class="breadcrumb-input mb-4 mt-4">
+                                    <?php
+                                    try{
+                                        $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                                        $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        $sql = "SELECT * FROM quanlibanhang.hanghoa";
+                                        $query = $connect->prepare($sql);
+                                        $query->execute();
+                                        $result = $query;
+                                        foreach ($result as $item) {
+                                            echo '<option> ' .$item['MSHH'];
+                                            echo "-".$item['TenHH']. '</td> </option>';
+                                        }
+                                    }catch(PDOException $e){
+                                        die($e->getMessage());
+                                    }
+                                    ?>
+                                </select>
+                            </datalist>
+                        </form>
+
                         <div class="card card-new mb-4">
                             <div class="table-responsive">
                                 <table class="table table-bordered2 table-new" width="100%" cellspacing="0">
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Mã hàng</th>
-                                        <th>Tên sản phẩm</th>
-                                        <th>Số lượng</th>
-                                        <th>Giá bán</th>        
-                                        <th>Thành tiền</th>    
-                                        <th></th>                                
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>SP001</td>
-                                        <td>Áo thun trắng</td>
-                                        <td>1</td>
-                                        <td>250.000</td>
-                                        <td>250.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>SP003</td>
-                                        <td>Áo len dài</td>
-                                        <td>1</td>
-                                        <td>350.000</td>
-                                        <td>350.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>SP002</td>
-                                        <td>Áo hoodie</td>
-                                        <td>1</td>
-                                        <td>500.000</td>
-                                        <td>500.000</td>
-                                        <td>
-                                            <button><i class="fas fa-trash-alt"></i></button>
-                                        </td>
-                                    </tr> 
+                                    <thead>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Mã hàng</th>
+                                            <th>Tên sản phẩm</th>
+                                            <th>Số lượng</th>
+                                            <th>Giá bán</th>
+                                            <th>Thành tiền</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    try{
+                                        $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                                        $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                        $sql = "SELECT * FROM quanlibanhang.hanghoa";
+                                        $query = $connect->prepare($sql);
+                                        $query->execute();
+                                        $result = $query;
+                                        foreach ($result as $item) {
+                                            echo '<td>' .$item['MSHH']. '</td>';
+                                            echo '<td>' .$item['TenHH']. '</td>';
+                                            echo '<td>' .$item['Gia']. '</td>';
+                                            echo '<td>' .$item['SoLuongHang']. '</td>';
+                                            echo '<td>' .$item['MaNhom']. '</td>';
+                                            echo '<td> <img src = "' .$item['Hinh']. '"></td>';
+                                            echo '<td>' .$item['MoTaHH']. '</td>';
+                                        }
+                                    }catch(PDOException $e){
+                                        die($e->getMessage());
+                                    }
+                                    ?>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -205,6 +154,27 @@
                     </div>
 
                     <table>
+                        <?php
+                        try{
+                            $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                            $sql = "SELECT * FROM quanlibanhang.hanghoa";
+                            $query = $connect->prepare($sql);
+                            $query->execute();
+                            $result = $query;
+                            foreach ($result as $item) {
+                                echo '<td>' .$item['MSHH']. '</td>';
+                                echo '<td>' .$item['TenHH']. '</td>';
+                                echo '<td>' .$item['Gia']. '</td>';
+                                echo '<td>' .$item['SoLuongHang']. '</td>';
+                                echo '<td>' .$item['MaNhom']. '</td>';
+                                echo '<td> <img src = "' .$item['Hinh']. '"></td>';
+                                echo '<td>' .$item['MoTaHH']. '</td>';
+                            }
+                        }catch(PDOException $e){
+                            die($e->getMessage());
+                        }
+                        ?>
                         <tr>
                             <td> Hình thức </td>
                             <td>
@@ -213,7 +183,23 @@
                             </td>
                         </tr>
                         <tr>
-                            <td> Tiền hàng </td>
+                            <td>
+                                Số Lượng:
+                            </td>
+                            <td>
+                                    <input type="number" id="quantity" name="quantity" min="1" max="100">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                Đơn Giá:
+                            </td>
+                            <td>
+                                <span></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td> Thành Tiền </td>
                             <td>
                                 <span> 3.000.000 </span>
                             </td>
@@ -246,7 +232,7 @@
                     <div>
                         <button type="button" class="btn btn-primary mt-2 safe-btn">
                             <i class="fas fa-check"></i>
-                            Lưu
+                            Thanh Toán
                         </button>
                     </div>
                 </div>
