@@ -41,22 +41,26 @@
                             echo "
                                     <script type='text/javascript'> 
                                         alert('Lỗi'); 
+                                        $('#SanPham tbody').empty();
                                     </script>";
-                        }         
-                        $donhang =  '<td>' . $i . '</td>
-                                    <td>' . $item['MSHH'] . '</td>
-                                    <td>' . $item['TenHH'] . '</td>
-                                    <td> <img src = "' . $item['Hinh'] . '"></td>
-                                    <td> <input type="number" id="quantity" name="quantity" min="1" max="100"></td>
-                                    <td>' . $item['Gia'] . '</td>
-                                    <td><span id="thanhtien"></span></td>
-                                    <td><button id="Del"><i class="fas fa-trash-alt"></i></button></td>';
-                        ?>
+                        }
+                        else{
+                            $donhang =  '<td>' . $i . '</td>
+                                                <td>' . $item['MSHH'] . '</td>
+                                                <td>' . $item['TenHH'] . '</td>
+                                                <td> <img src = "' . $item['Hinh'] . '"></td>
+                                                <td> <input type="number" id="quantity" name="quantity" min="1" max="100"></td>
+                                                <td>' . $item['Gia'] . '</td>
+                                                <td><span id="thanhtien"></span></td>
+                                                <td><button id="Del"><i class="fas fa-trash-alt"></i></button></td>';
+                        }?>
+
+
                             <script>
                                 localStorage.setItem('DonGia', <?php echo $item['Gia'] ?>);
                             </script>
                         <?php
-                    }
+                        }
                 } catch (PDOException $e) {
                     die($e->getMessage());
                 }
@@ -217,16 +221,37 @@
                             </tr>
                         </table>
                         <div>
-                            <button type="button" class="btn btn-primary mt-2 safe-btn">
+                            <button type="submit" name="accept-purchase" class="btn btn-primary mt-2 safe-btn">
                                 <i class="fas fa-check"></i>
                                 Thanh Toán
                             </button>
-                            <button type="button" class="btn btn-danger mt-2 cancel-btn">
+                            <button type="submit" name ="cancel-purchase" class="btn btn-danger mt-2 cancel-btn">
                                 Hủy
                             </button>
                         </div>
                     </div>
                 </form>
+                <?php
+                    if(isset($_REQUEST['accept-purchase'])){
+                        echo"
+                            <script>
+                                alert('Thanh Cong');
+                                localStorage.setItem('TongTien', '0');
+                                localStorage.setItem('DonGia', '0');
+                            </script>
+                        ";
+                    }
+
+                    if(isset($_REQUEST['cancel-purchase'])){
+                        //$_REQUEST['search-input'] == null;
+                        ?>
+                        <script>
+                            localStorage.setItem('TongTien', '0');
+                            localStorage.setItem('DonGia', '0');
+                        </script>
+                <?php
+                    }
+                ?>
             </div>
         </div>
         
