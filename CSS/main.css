@@ -6,3 +6,17 @@ img{
     height: auto;
 }
 
+.order-button {
+    float: right;
+}
+
+.cancel-btn {
+    float: right;
+    margin-right: 15px;
+}
+
+.margin-alert {
+    position: absolute;
+    width: 95%;
+    bottom: 35%;
+}

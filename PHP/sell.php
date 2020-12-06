@@ -11,6 +11,7 @@
         <link rel="stylesheet" type="text/css" href="../CSS/main.css" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/js/all.min.js" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
     <body class="sb-nav-fixed">
     <?php
         include_once("config.php");
@@ -34,16 +35,22 @@
                     $result = $query;
                     foreach($result as $item) {
                         if($item['SoLuongHang'] ==  0){
-                            echo"Looix";
-                            return;
-                        }
+                            $id = null;
+                            $_REQUEST['search-input'] == null;
+                            $donhang= "";
+                            echo "
+                                    <script type='text/javascript'> 
+                                        alert('Lỗi'); 
+                                    </script>";
+                        }         
                         $donhang =  '<td>' . $i . '</td>
                                     <td>' . $item['MSHH'] . '</td>
                                     <td>' . $item['TenHH'] . '</td>
                                     <td> <img src = "' . $item['Hinh'] . '"></td>
                                     <td> <input type="number" id="quantity" name="quantity" min="1" max="100"></td>
-                                    <td>' . $item['Gia'] . '</td><td><span id="thanhtien"></span></td>
-                                    <td><button id="Del">Bỏ</button></td>';
+                                    <td>' . $item['Gia'] . '</td>
+                                    <td><span id="thanhtien"></span></td>
+                                    <td><button id="Del"><i class="fas fa-trash-alt"></i></button></td>';
                         ?>
                             <script>
                                 localStorage.setItem('DonGia', <?php echo $item['Gia'] ?>);
@@ -84,8 +91,8 @@
             <div id="layoutSell_content">
                 <main>
                     <div class="container-fluid">
-                        <form name="form-search" method="post" action="#">
-                            <input class="breadcrumb-input mb-4 mt-4" type="text" name = "search-input" id="search-input" list="ide" />
+                        <form name="form-search" method="post" action="">
+                            <input class="breadcrumb-input mb-4 mt-4" type="text" name = "search-input" id="search-input" list="ide" placeholder="Tìm kiếm sản phẩm..."/>
                             <datalist id="ide">
                                 <select class="breadcrumb-input mb-4 mt-4">
                                     <?php
@@ -106,7 +113,7 @@
                                     ?>
                                 </select>
                             </datalist>
-                            <input id = "submit-accept-search" type="submit" name="submit-accept-search" value="Xác Nhận">
+                            <input id="submit-accept-search" class="btn btn-primary ml-2" type="submit" name="submit-accept-search" value="Xác Nhận" />
                         </form>
 
                         <div class="card card-new mb-4">
@@ -121,7 +128,7 @@
                                             <th>Số lượng</th>
                                             <th>Giá bán</th>
                                             <th>Thành tiền</th>
-                                            <th>Loại Bỏ</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -132,96 +139,101 @@
                                 </table>
                             </div>
                         </div>
-                        <button id = "add-product">
+                        <button id = "add-product" class="btn btn-primary order-button">
                             Thêm Vào Hóa Đơn
                         </button>
-                        <div class="alert alert-success"> 
+                        <div class="alert alert-success margin-alert"> 
                             Gõ mã hoặc tên sản phẩm vào hộp tìm kiếm để thêm hàng vào đơn hàng
                         </div>
                     </div>              
                 </main>
             </div>
             <div id="layoutSell_info">
-                <div id="info-top">
-                    <table>
-                        <tr>
-                            <td>Khách hàng</td>
-                            <td>
-                                <input type="text" placeholder="NHập Tên Khách Hàng"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>SDT Khách Hàng:</td>
-                            <td>
-                                <input type="number" placeholder="NHập SDT Khách Hàng"/>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>NV bán hàng</td>
-                            <td>
-                                <span>
-                                    <?php
-                                        $MaNV = $_SESSION['MSNV'];
-                                        try{
-                                            $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
-                                            $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                                            $sql = "SELECT HoTenNV FROM quanlibanhang.nhanvien WHERE MSNV = '$MaNV'";
-                                            $query = $connect->prepare($sql);
-                                            $query->execute();
-                                            $result = $query;
-                                            foreach ($result as $item) {
-                                                echo $item['HoTenNV'];
+                <form method="post" action="#">
+                    <div id="info-top">  
+                        <table>
+                            <tr>
+                                <td>Khách hàng</td>
+                                <td>
+                                    <input type="text" placeholder="NHập Tên Khách Hàng"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SDT Khách Hàng:</td>
+                                <td>
+                                    <input type="number" placeholder="NHập SDT Khách Hàng"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>NV bán hàng</td>
+                                <td>
+                                    <span>
+                                        <?php
+                                            $MaNV = $_SESSION['MSNV'];
+                                            try{
+                                                $connect = new PDO('mysql:host = '.$hostname.'; dbname = '.$database, $username, $password);
+                                                $connect->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                                                $sql = "SELECT HoTenNV FROM quanlibanhang.nhanvien WHERE MSNV = '$MaNV'";
+                                                $query = $connect->prepare($sql);
+                                                $query->execute();
+                                                $result = $query;
+                                                foreach ($result as $item) {
+                                                    echo $item['HoTenNV'];
+                                                }
+                                            }catch(PDOException $e){
+                                                die($e->getMessage());
                                             }
-                                        }catch(PDOException $e){
-                                            die($e->getMessage());
-                                        }
-                                    ?>
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="title-top">Ghi chú</td>
-                            <td>
-                                <textarea rows="4" cols="35"></textarea>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div id="info-bottom">
-                    <div>
-                        <i class="fas fa-info-circle info-color"></i>
-                        <h5> Thông tin thanh toán </h5>
+                                        ?>
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="title-top">Ghi chú</td>
+                                <td>
+                                    <textarea rows="4" cols="35"></textarea>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
+                    <div id="info-bottom">
+                        <div>
+                            <i class="fas fa-info-circle info-color"></i>
+                            <h5> Thông tin thanh toán </h5>
+                        </div>
 
-                    <table>
-                        <tr>
-                            <td> Hình thức </td>
-                            <td>
-                                <input type="radio" /><label> Tiền mặt </label>
-                                <input type="radio" /><label> Thẻ </label>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td> Thành Tiền </td>
-                            <td>
-                                <span id="tongtienthanhtoan">  </span>
-                            </td>
-                        </tr>
-                    </table>
-                    <div>
-                        <button type="button" class="btn btn-primary mt-2 safe-btn">
-                            <i class="fas fa-check"></i>
-                            Thanh Toán
-                        </button>
+                        <table>
+                            <tr>
+                                <td> Hình thức </td>
+                                <td>
+                                    <input type="radio" name="radio-btn"/><label> Tiền mặt </label>
+                                    <input type="radio" name="radio-btn"/><label> Thẻ </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td> Thành Tiền </td>
+                                <td>
+                                    <span id="tongtienthanhtoan">  </span>
+                                </td>
+                            </tr>
+                        </table>
+                        <div>
+                            <button type="button" class="btn btn-primary mt-2 safe-btn">
+                                <i class="fas fa-check"></i>
+                                Thanh Toán
+                            </button>
+                            <button type="button" class="btn btn-danger mt-2 cancel-btn">
+                                Hủy
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         
     <?php
         }
     ?>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" crossorigin="anonymous"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     <script src="../JS/scripts.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
